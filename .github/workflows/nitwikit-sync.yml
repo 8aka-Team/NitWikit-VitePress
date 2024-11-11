@@ -1,0 +1,39 @@
+name: 'NitWikit Sync'
+
+on:
+  workflow_dispatch: # Allow manual triggering
+  schedule:
+    - cron: '10 0 * * *'  # Execute at midnight every day
+
+jobs:
+  update_submodules:
+    name: Update submodules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules : true
+          
+      - name: Update submodules
+        id: update
+        run: git submodule update --remote --recursive 
+        
+      - name: Run git status
+        id: status
+        run: echo "::set-output name=status::$(git status -s)"
+        
+      - name: Add and commit files
+        env:
+          event_name: ${{ github.event_name }}
+        run: |
+          git add .
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update Nitwikit from upstream by $event_name."
+        if: ${{ steps.status.outputs.status }}
+        
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          branch: main
+        if: ${{ steps.status.outputs.status }}

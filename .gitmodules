@@ -1,0 +1,3 @@
+[submodule "docs/nitwikit"]
+	path = docs/nitwikit
+	url = https://github.com/postyizhan/NitWikit.git
