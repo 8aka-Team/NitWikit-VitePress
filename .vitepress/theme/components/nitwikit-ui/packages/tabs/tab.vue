@@ -29,6 +29,10 @@ onMounted(() => {
   if (props.defaultValue) {
     tabValue.value = props.defaultValue
   }
+
+  if (tabValue.value === '' && tabItems.value.length !== 0) {
+    tabValue.value = tabItems.value[0].value
+  }
 })
 
 provide<TabProvide['$store']>("$store", { tabValue, tabItems })
@@ -56,6 +60,7 @@ type TabItem = Record<'label' | 'value', string>;
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin: 15px 0;
 
   &__header {
     display: flex;
