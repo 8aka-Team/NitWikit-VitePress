@@ -1,0 +1,16 @@
+import{_ as e,c as a,a5 as n,o as t}from"./chunks/framework.O9ad3XaM.js";const h=JSON.parse('{"title":"ItemsAdder","description":"","frontmatter":{"title":"ItemsAdder","sidebar_position":1},"headers":[],"relativePath":"nitwikit/docs-java/process/plugin/ManageTool/ResourcePackManagement/ItemsAdder.md","filePath":"nitwikit/docs-java/process/plugin/ManageTool/ResourcePackManagement/ItemsAdder.md","lastUpdated":1730974396000}'),p={name:"nitwikit/docs-java/process/plugin/ManageTool/ResourcePackManagement/ItemsAdder.md"};function r(d,s,i,o,c,l){return t(),a("div",null,s[0]||(s[0]=[n(`<h1 id="itemsadder" tabindex="-1">ItemsAdder <a class="header-anchor" href="#itemsadder" aria-label="Permalink to &quot;ItemsAdder&quot;">​</a></h1><div class="info custom-block"><p class="custom-block-title">INFO</p><p><code>SpigotMC</code> <a href="https://www.spigotmc.org/resources/.73355/" target="_blank" rel="noreferrer">https://www.spigotmc.org/resources/.73355/</a></p><p><code>GitHub(主页)</code> <a href="https://github.com/ItemsAdder" target="_blank" rel="noreferrer">https://github.com/ItemsAdder</a></p><p><code>GitHub(可以反馈BUG)</code> <a href="https://github.com/PluginBugs/Issues-ItemsAdder" target="_blank" rel="noreferrer">https://github.com/PluginBugs/Issues-ItemsAdder</a></p><p><code>文档(英文)</code> <a href="https://itemsadder.devs.beer/" target="_blank" rel="noreferrer">https://itemsadder.devs.beer/</a></p><p><code>文档(中文)</code> <a href="https://itemsadder.devs.beer/v/chinese" target="_blank" rel="noreferrer">https://itemsadder.devs.beer/v/chinese</a></p><p><code>文档(非官方中文)</code> <a href="https://docs.superiormc.cn/v/itemsadder-doc" target="_blank" rel="noreferrer">https://docs.superiormc.cn/v/itemsadder-doc</a></p></div><p>这是一个付费闭源插件，GitHub上并没有上传插件本体。</p><div class="language-text vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">text</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>【IA入门指南.新手必看.简洁版】</span></span>
+<span class="line"><span>-</span></span>
+<span class="line"><span>第一步：IA是基于原版的材质包框架所开发的插件，所以遵守Mojang制定的材质包规范， 如果你会材质包开发甚至不需要用到IA。如果你在使用IA时连CMD，命名空间，着色器，JSON这些最基本的内容都不知道请恶补以下内容：</span></span>
+<span class="line"><span>https://zhangshenxing.gitee.io/vanillamodtutorial/#%E8%B5%84%E6%BA%90%E5%8C%85</span></span>
+<span class="line"><span>-</span></span>
+<span class="line"><span>第二步：</span></span>
+<span class="line"><span>使用IA官方WIKI并结合原版材质包开发产出内容，但是请注意IA内有大量无用功能和屎山代码，所以将IA当作一个打包器是最优解的选择</span></span>
+<span class="line"><span>https://itemsadder.devs.beer</span></span>
+<span class="line"><span>-</span></span>
+<span class="line"><span>第三步：如何让你的服务器更加劣质的办法(仅我个人而言，如果你看的很不舒服我很抱歉，如果你要对号入座那就是你是对的)</span></span>
+<span class="line"><span>1. 大量声明空间引用乱的一批，这类服务器要不就是腐竹技术过低，要不就是海鲜缝合包或盗用，连国外9美刀的付费端都不如</span></span>
+<span class="line"><span>2. 材质混素严重，在16px-128px漂浮不定，没有自己的主美体系</span></span>
+<span class="line"><span>3. 乱加插件，看啥加啥，导致服务器变成性能答辩，这种服开不了几个月就跑路</span></span>
+<span class="line"><span>4. 在高版本非特殊需求还在使用单端开发，没有采用最基本的群组框架</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>                                    ————来自ia群 群公告</span></span></code></pre></div><p>连基础都没学不要他妈的问问问</p>`,5)]))}const g=e(p,[["render",r]]);export{h as __pageData,g as default};
