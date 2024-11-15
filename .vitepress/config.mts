@@ -1,10 +1,10 @@
-import { defineConfig } from "vitepress";
 import { getSidebar } from "./utils/vitepress";
 import themeConfig from "./theme.config";
 import { resolve } from "path";
+import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withMermaid({
   title: "NitWikit",
   description: "一群笨蛋们写的 Minecraft 开服教程",
   ignoreDeadLinks: true,
@@ -35,6 +35,9 @@ export default defineConfig({
         },
       },
     },
+    optimizeDeps: {
+      include: ['@braintree/sanitize-url', 'dayjs', 'debug', 'cytoscape-cose-bilkent', 'cytoscape']
+    }
   },
   lang: "zh-CN",
   themeConfig: {
