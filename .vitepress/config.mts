@@ -29,6 +29,25 @@ export default withMermaid({
           }
         },
       },
+      {
+        name: "nitwikit-assets-transformer",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.endsWith(".md")) {
+            const reg = /!\[(?<name>.*)\]\((?<url>_images(.*))\)/g;
+            // TODO: Not working...
+            const list = code.match(reg)?.map((item) => reg.exec(item)?.groups);
+            console.info(code.match(reg));
+
+            code.match(reg)?.forEach((item) => {
+              console.info(item, reg.exec(item));
+            });
+            return code.replace(reg, (_match, name, url) => {
+              return `<nw-image src="${url}" alt="${name}" list="$2{list}" />`;
+            });
+          }
+        },
+      },
     ],
     css: {
       preprocessorOptions: {
@@ -38,8 +57,8 @@ export default withMermaid({
       },
     },
     optimizeDeps: {
-      include: ['@braintree/sanitize-url', 'dayjs', 'debug', 'cytoscape-cose-bilkent', 'cytoscape']
-    }
+      include: ["@braintree/sanitize-url", "dayjs", "debug", "cytoscape-cose-bilkent", "cytoscape"],
+    },
   },
   themeConfig: {
     nav: [
