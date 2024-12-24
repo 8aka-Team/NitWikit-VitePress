@@ -43,7 +43,7 @@ pnpm docs:dev
 
 (指本仓库**除** `docs/nitwikit` 目录外的所有数据，即使用 `Git Tools - Submodules` 技术所引用的 `NitWikit` 之数据)
 
-[LGPL v3.0](https://opensource.org/license/lgpl-3-0)
+[GPL v3.0](https://opensource.org/license/gpl-3-0)
 
 ### wiki 内容
 
