@@ -3,7 +3,7 @@ import themeConfig from "./theme.config";
 import { resolve } from "path";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
-const markdownImageRegExp = /!\[(?<name>.*)\]\((?<url>_images(.*))\)/g;
+const markdownImageRegExp = /!\[(?<name>.*)\]\((?<url>(.*))\)/g;
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
