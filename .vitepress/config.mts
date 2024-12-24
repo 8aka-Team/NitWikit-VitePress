@@ -3,6 +3,8 @@ import themeConfig from "./theme.config";
 import { resolve } from "path";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
+const markdownImageRegExp = /!\[(?<name>.*)\]\((?<url>_images(.*))\)/g;
+
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
   title: "NitWikit",
@@ -34,17 +36,9 @@ export default withMermaid({
         enforce: "pre",
         transform(code, id) {
           if (id.endsWith(".md")) {
-            const reg = /!\[(?<name>.*)\]\((?<url>_images(.*))\)/g;
-            // TODO: Not working...
-            const list = code.match(reg)?.map((item) => reg.exec(item)?.groups);
-            console.info(code.match(reg));
-
-            code.match(reg)?.forEach((item) => {
-              console.info(item, reg.exec(item));
-            });
-            return code.replace(reg, (_match, name, url) => {
-              return `<nw-image src="${url}" alt="${name}" list="$2{list}" />`;
-            });
+            if (code.match(markdownImageRegExp)) {
+              return code + `\n<nw-image-viewer />`;
+            }
           }
         },
       },
@@ -79,7 +73,7 @@ export default withMermaid({
     "nitwikit/docs-bedrock/(.*)": "Bedrock/(.*)",
     "nitwikit/:pkg/(.*)": ":pkg/(.*)",
   },
-  // transformHtml: (code) => {
-  //   return code.replace(/import ([\s\S]+) from &#39;(@theme\/[\s\S]+)&#39;(;)/g, "");
-  // },
+  transformHtml: (code) => {
+    return code + "\n<nw-image-viewer />";
+  },
 });
