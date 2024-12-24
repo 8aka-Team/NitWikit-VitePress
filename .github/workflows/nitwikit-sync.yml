@@ -43,8 +43,10 @@ jobs:
         if: ${{ steps.status.outputs.status }}
 
       - name: trigger deploy workflow
-        run: curl \
+        run: |
+            echo "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/wiki-deploy.yml/dispatches"
+            curl \
               -X POST \
               https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/wiki-deploy.yml/dispatches \
               -u ${{ secrets.PAT_TOKEN }} \
-              -d '{"ref":"$GITHUB_REF_NAME"}'
+              -d '{"ref":"${GITHUB_REF_NAME}"}'
