@@ -3,7 +3,11 @@ import themeConfig from "./theme.config";
 import { resolve } from "path";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
-const markdownImageRegExp = /!\[(?<name>.*)\]\((?<url>(.*))\)/g;
+const markdownRegExp = {
+  image: /!\[(?<name>.*)\]\((?<url>(.*))\)/g,
+  url: /\[(?<name>.*)\]\((?<url>(.*))\)/g,
+  bilitv: /\[(?<name>.*)\]\((?<url>https:\/\/www.bilibili.com\/video\/(?<id>(.*))\/(.*))\)/g,
+};
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
@@ -36,9 +40,20 @@ export default withMermaid({
         enforce: "pre",
         transform(code, id) {
           if (id.endsWith(".md")) {
-            if (code.match(markdownImageRegExp)) {
+            if (code.match(markdownRegExp.image)) {
               return code + `\n<nw-image-viewer />`;
             }
+          }
+        },
+      },
+      {
+        name: "nitwikit-bilitv-transformer",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.endsWith(".md")) {
+            return code.replace(markdownRegExp.bilitv, (_match, name, url, bvId) => {
+              return `<bili-player title="${name}" src="${url}" bv-id="${bvId}" />`;
+            });
           }
         },
       },
@@ -66,6 +81,12 @@ export default withMermaid({
       "/Bedrock/": await getSidebar(resolve(import.meta.dirname, "../docs/nitwikit/docs-bedrock"), "Bedrock"),
     },
     ...themeConfig,
+  },
+  markdown: {
+    languageAlias: {
+      gradle: "groovy",
+      maven: "xml",
+    },
   },
   rewrites: {
     "nitwikit/docs/(.*)": "(.*)",
