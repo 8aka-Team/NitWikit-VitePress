@@ -24,11 +24,15 @@ features:
 ---
 
 <style>
-:root {
+.container {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #b7b7b7 30%, #312104);
+  --vp-home-hero-name-background: linear-gradient(120deg, #b7b7b7 30%, #312104);
 
   --vp-home-hero-image-background-image: linear-gradient(-45deg, #b7b7b7 50%, #312104 50%);
+  
+  --vp-button-brand-bg: #312104;
+  --vp-button-brand-hover-bg:#694e1d;
+  
   --vp-home-hero-image-filter: blur(44px);
 }
 
