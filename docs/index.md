@@ -9,10 +9,10 @@ hero:
   actions:
     - theme: brand
       text: 快速开始 🥵
-      link: /nitwikit/docs/intro
+      link: /intro
   image:
     src: /book.png
-    alt: VitePress
+    alt: NitWikit (VitePress)
 
 features:
   - title: 「简单」
