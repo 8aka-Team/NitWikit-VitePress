@@ -6,6 +6,7 @@ import { withMermaid } from "vitepress-plugin-mermaid";
 const markdownRegExp = {
   image: /!\[(?<name>.*)\]\((?<url>(.*))\)/g,
   url: /\[(?<name>.*)\]\((?<url>(.*))\)/g,
+  nitwikitUrl: /\[(?<name>.*)\]\((?<url>https:\/\/nitwikit\.yizhan\.wiki\/(.*))\)/g,
   bilitv: /\[(?<name>.*)\]\((?<url>https:\/\/www.bilibili.com\/video\/(?<id>(.*))\/(.*))\)/g,
 };
 
@@ -32,6 +33,17 @@ export default withMermaid({
               .replace(/import ([\s\S]+) from ['"](@theme\/[\s\S]+)['"];/g, "")
               .replace(/import ([\s\S]+) from &#39;(@theme\/[\s\S]+)&#39;;/g, "")
               .replace(/values={\[([\s\S]*)\]}/g, "");
+          }
+        },
+      },
+      {
+        name: "nitwikit-url-transformer",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.endsWith(".md")) {
+            return code.replace(markdownRegExp.nitwikitUrl, (match, _name, url) => {
+              return match.replace(url, url.replace("https://nitwikit.yizhan.wiki/", "/"));
+            });
           }
         },
       },
