@@ -1,0 +1,3 @@
+[submodule "docs/nitwikit"]
+	path = docs/nitwikit
+	url = git@github.com:8aka-Team/NitWikit.git
