@@ -1,10 +1,10 @@
-import { DefaultTheme } from "vitepress";
+import { DefaultTheme, PageData } from "vitepress";
 
 export default {
   logo: "/book.png",
 
   editLink: {
-    pattern: "https://github.com/postyizhan/NitWikit/edit/main/:path",
+    pattern: (payload: PageData) => `https://github.com/8aka-Team/NitWikit/edit/main/${payload.filePath.replace(/^nitwikit\//, "")}`,
     text: "为此页提供修改建议",
   },
   darkModeSwitchLabel: "外观",

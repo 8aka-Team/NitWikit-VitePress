@@ -11,6 +11,9 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+      viewerjs:
+        specifier: ^1.11.7
+        version: 1.11.7
     devDependencies:
       '@types/lodash-es':
         specifier: ^4.17.12
@@ -1386,6 +1389,9 @@ packages:
 
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
+
+  viewerjs@1.11.7:
+    resolution: {integrity: sha512-0JuVqOmL5v1jmEAlG5EBDR3XquxY8DWFQbFMprOXgaBB0F7Q/X9xWdEaQc59D8xzwkdUgXEMSSknTpriq95igg==}
 
   vite@5.4.10:
     resolution: {integrity: sha512-1hvaPshuPUtxeQ0hsVH3Mud0ZanOLwVTneA1EgbAM5LhaZEqyPWGRQ7BtaMvUrTDeEaC8pxtj6a6jku3x4z6SQ==}
@@ -2869,6 +2875,8 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
+
+  viewerjs@1.11.7: {}
 
   vite@5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6):
     dependencies:

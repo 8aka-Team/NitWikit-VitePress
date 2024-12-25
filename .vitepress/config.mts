@@ -3,6 +3,12 @@ import themeConfig from "./theme.config";
 import { resolve } from "path";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
+const markdownRegExp = {
+  image: /!\[(?<name>.*)\]\((?<url>(.*))\)/g,
+  url: /\[(?<name>.*)\]\((?<url>(.*))\)/g,
+  bilitv: /\[(?<name>.*)\]\((?<url>https:\/\/www.bilibili.com\/video\/(?<id>(.*))\/(.*))\)/g,
+};
+
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
   title: "NitWikit",
@@ -29,6 +35,28 @@ export default withMermaid({
           }
         },
       },
+      {
+        name: "nitwikit-assets-transformer",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.endsWith(".md")) {
+            if (code.match(markdownRegExp.image)) {
+              return code + `\n<nw-image-viewer />`;
+            }
+          }
+        },
+      },
+      {
+        name: "nitwikit-bilitv-transformer",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.endsWith(".md")) {
+            return code.replace(markdownRegExp.bilitv, (_match, name, url, bvId) => {
+              return `<bili-player title="${name}" src="${url}" bv-id="${bvId}" />`;
+            });
+          }
+        },
+      },
     ],
     css: {
       preprocessorOptions: {
@@ -38,8 +66,8 @@ export default withMermaid({
       },
     },
     optimizeDeps: {
-      include: ['@braintree/sanitize-url', 'dayjs', 'debug', 'cytoscape-cose-bilkent', 'cytoscape']
-    }
+      include: ["@braintree/sanitize-url", "dayjs", "debug", "cytoscape-cose-bilkent", "cytoscape"],
+    },
   },
   themeConfig: {
     nav: [
@@ -54,13 +82,19 @@ export default withMermaid({
     },
     ...themeConfig,
   },
+  markdown: {
+    languageAlias: {
+      gradle: "groovy",
+      maven: "xml",
+    },
+  },
   rewrites: {
     "nitwikit/docs/(.*)": "(.*)",
     "nitwikit/docs-java/(.*)": "Java/(.*)",
     "nitwikit/docs-bedrock/(.*)": "Bedrock/(.*)",
     "nitwikit/:pkg/(.*)": ":pkg/(.*)",
   },
-  // transformHtml: (code) => {
-  //   return code.replace(/import ([\s\S]+) from &#39;(@theme\/[\s\S]+)&#39;(;)/g, "");
-  // },
+  transformHtml: (code) => {
+    return code + "\n<nw-image-viewer />";
+  },
 });

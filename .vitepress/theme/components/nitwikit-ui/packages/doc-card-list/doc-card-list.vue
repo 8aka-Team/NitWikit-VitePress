@@ -39,6 +39,7 @@ const onDocCardClickHandler = (item: DefaultTheme.SidebarItem) => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
+  margin: 20px 0;
 
   .doc-card {
     border-radius: 10px;
