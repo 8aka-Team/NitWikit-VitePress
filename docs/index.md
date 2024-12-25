@@ -102,14 +102,14 @@ onMounted(() => {
   .VPHero {
     color: #515c67;
     .tagline {
-      color: #414853;
+      color: #414853 !important;
     }
   }
   html.dark {
     .VPHero {
       color: rgba(255, 255, 245, 0.86);
       .tagline {
-        color: rgba(235, 235, 245, 0.6);
+        color: rgba(235, 235, 245, 0.6) !important;
       }
     }
   }
@@ -129,7 +129,7 @@ onMounted(() => {
   .VPHero {
     color: rgba(255, 255, 245, 0.86);
     .tagline {
-      color: rgba(235, 235, 245, 0.6);
+      color: rgba(235, 235, 245, 0.6) !important;
     }
   }
 }
