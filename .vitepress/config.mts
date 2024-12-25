@@ -8,6 +8,7 @@ const markdownRegExp = {
   url: /\[(?<name>.*)\]\((?<url>(.*))\)/g,
   nitwikitUrl: /\[(?<name>.*)\]\((?<url>https:\/\/nitwikit\.yizhan\.wiki\/(.*))\)/g,
   bilitv: /\[(?<name>.*)\]\((?<url>https:\/\/www.bilibili.com\/video\/(?<id>(.*))\/(.*))\)/g,
+  title: /^(---([\s\S]*)---)?([\r|\n]*)(?<heading>[#]{2,6} )(?<title>[\s\S].*)/,
 };
 
 // https://vitepress.dev/reference/site-config
@@ -33,6 +34,19 @@ export default withMermaid({
               .replace(/import ([\s\S]+) from ['"](@theme\/[\s\S]+)['"];/g, "")
               .replace(/import ([\s\S]+) from &#39;(@theme\/[\s\S]+)&#39;;/g, "")
               .replace(/values={\[([\s\S]*)\]}/g, "");
+          }
+        },
+      },
+      {
+        name: "nitwikit-content-transformer",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.endsWith(".md")) {
+            const result = code.match(markdownRegExp.title);
+            if (result !== null) {
+              console.info(id, result.groups?.title);
+              return code.replace(`${result.groups?.heading}${result.groups?.title}`, `# ${result.groups?.title}`);
+            }
           }
         },
       },
