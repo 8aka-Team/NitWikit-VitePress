@@ -2,6 +2,7 @@ import { getSidebar } from "./utils/vitepress";
 import themeConfig from "./theme.config";
 import { resolve } from "path";
 import { withMermaid } from "vitepress-plugin-mermaid";
+import { NitWikitAssertsTransformer, NitWikitBilibiliTransformer, NitWikitContentTransformer, NitWikitUrlTransformer } from "../build/plugins";
 
 const markdownRegExp = {
   image: /!\[(?<name>.*)\]\((?<url>(.*))\)/g,
@@ -25,64 +26,10 @@ export default withMermaid({
     publicDir: "../public",
     assetsInclude: ["**/*.JPG", "**/*.PNG"],
     plugins: [
-      {
-        name: "nitwikit-transformer",
-        enforce: "pre",
-        transform(code, id) {
-          if (id.endsWith(".md")) {
-            return code
-              .replace(/import ([\s\S]+) from ['"](@theme\/[\s\S]+)['"];/g, "")
-              .replace(/import ([\s\S]+) from &#39;(@theme\/[\s\S]+)&#39;;/g, "")
-              .replace(/values={\[([\s\S]*)\]}/g, "");
-          }
-        },
-      },
-      {
-        name: "nitwikit-content-transformer",
-        enforce: "pre",
-        transform(code, id) {
-          if (id.endsWith(".md")) {
-            const result = code.match(markdownRegExp.title);
-            if (result !== null) {
-              console.info(id, result.groups?.title);
-              return code.replace(`${result.groups?.heading}${result.groups?.title}`, `# ${result.groups?.title}`);
-            }
-          }
-        },
-      },
-      {
-        name: "nitwikit-url-transformer",
-        enforce: "pre",
-        transform(code, id) {
-          if (id.endsWith(".md")) {
-            return code.replace(markdownRegExp.nitwikitUrl, (match, _name, url) => {
-              return match.replace(url, url.replace("https://nitwikit.yizhan.wiki/", "/"));
-            });
-          }
-        },
-      },
-      {
-        name: "nitwikit-assets-transformer",
-        enforce: "pre",
-        transform(code, id) {
-          if (id.endsWith(".md")) {
-            if (code.match(markdownRegExp.image)) {
-              return code + `\n<nw-image-viewer />`;
-            }
-          }
-        },
-      },
-      {
-        name: "nitwikit-bilitv-transformer",
-        enforce: "pre",
-        transform(code, id) {
-          if (id.endsWith(".md")) {
-            return code.replace(markdownRegExp.bilitv, (_match, name, url, bvId) => {
-              return `<bili-player title="${name}" src="${url}" bv-id="${bvId}" />`;
-            });
-          }
-        },
-      },
+      new NitWikitContentTransformer().build(),
+      new NitWikitAssertsTransformer().build(),
+      new NitWikitUrlTransformer().build(),
+      new NitWikitBilibiliTransformer().build(),
     ],
     css: {
       preprocessorOptions: {
