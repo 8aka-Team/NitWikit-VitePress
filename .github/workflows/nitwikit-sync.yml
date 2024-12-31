@@ -45,7 +45,7 @@ jobs:
       - name: trigger deploy workflow
         run: curl \
               -X POST \
-              https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/wiki-deploy.yml/dispatches \
+              https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/wiki-deploy.yml/dispatches \
               -u ${{ secrets.PAT_TOKEN }} \
               -d '{"ref":"${{github.ref_name}}"}'
         if: ${{ steps.status.outputs.status }}
