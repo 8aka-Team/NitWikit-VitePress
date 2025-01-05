@@ -2,15 +2,7 @@ import { getSidebar } from "./utils/vitepress";
 import themeConfig from "./theme.config";
 import { resolve } from "path";
 import { withMermaid } from "vitepress-plugin-mermaid";
-import { NitWikitAssertsTransformer, NitWikitBilibiliTransformer, NitWikitContentTransformer, NitWikitUrlTransformer } from "../build/plugins";
-
-const markdownRegExp = {
-  image: /!\[(?<name>.*)\]\((?<url>(.*))\)/g,
-  url: /\[(?<name>.*)\]\((?<url>(.*))\)/g,
-  nitwikitUrl: /\[(?<name>.*)\]\((?<url>https:\/\/nitwikit\.yizhan\.wiki\/(.*))\)/g,
-  bilitv: /\[(?<name>.*)\]\((?<url>https:\/\/www.bilibili.com\/video\/(?<id>(.*))\/(.*))\)/g,
-  title: /^(---([\s\S]*)---)?([\r|\n]*)(?<heading>[#]{2,6} )(?<title>[\s\S].*)/,
-};
+import { NitWikitAssertsTransformer, NitWikitBilibiliTransformer, NitWikitContentTransformer, NitWikitUrlTransformer } from "./build/plugins";
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
@@ -66,8 +58,5 @@ export default withMermaid({
     "nitwikit/docs-java/(.*)": "Java/(.*)",
     "nitwikit/docs-bedrock/(.*)": "Bedrock/(.*)",
     "nitwikit/:pkg/(.*)": ":pkg/(.*)",
-  },
-  transformHtml: (code) => {
-    return code + "\n<nw-image-viewer />";
   },
 });
