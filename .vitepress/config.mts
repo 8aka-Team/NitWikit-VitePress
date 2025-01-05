@@ -42,8 +42,8 @@ export default withMermaid({
     ],
     sidebar: {
       "/": await getSidebar(resolve(import.meta.dirname, "../docs/nitwikit/docs"), ""),
-      "/Java/": await getSidebar(resolve(import.meta.dirname, "../docs/nitwikit/docs-java"), "Java"),
-      "/Bedrock/": await getSidebar(resolve(import.meta.dirname, "../docs/nitwikit/docs-bedrock"), "Bedrock"),
+      "/Java/": await getSidebar(resolve(import.meta.dirname, "../docs/nitwikit/docs-java"), "/Java"),
+      "/Bedrock/": await getSidebar(resolve(import.meta.dirname, "../docs/nitwikit/docs-bedrock"), "/Bedrock"),
     },
     ...themeConfig,
   },

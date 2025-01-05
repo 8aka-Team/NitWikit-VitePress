@@ -1,8 +1,13 @@
 import fs from "fs";
+import { resolve } from "path";
 import glob from "tiny-glob";
 import frontMatter from "front-matter";
 import { DefaultTheme } from "vitepress";
-import { cloneDeep, omit, pull } from "lodash-es";
+import { cloneDeep, isUndefined, omit, pull } from "lodash-es";
+import markdownit from "markdown-it";
+import { Node, parseFromString } from "dom-parser";
+
+const md = markdownit({ html: true, linkify: true, typographer: true });
 
 export async function getSidebar(dir: string, pagePath: string): Promise<DefaultTheme.SidebarItem[]> {
   const files = await glob(`**/*.md`, { cwd: dir });
@@ -12,7 +17,7 @@ export async function getSidebar(dir: string, pagePath: string): Promise<Default
     return tree
       .map((item) => {
         return {
-          text: item?.attributes?.title ?? item.name ?? "Unknown",
+          text: getTitle(dir, item),
           items: flatmap(item.children ?? []),
           link: pagePath + "/" + item.path.replaceAll("\\", "/").replace(/\.md$/, ""),
           meta: item,
@@ -72,6 +77,39 @@ function getMarkdownAttributes(path) {
   return fm.attributes;
 }
 
+function getTitle(dir: string, item: TreeNode) {
+  let title = item?.attributes?.title ?? item.attributes?.sidebar_label;
+
+  try {
+    if (isUndefined(title)) {
+      const path = resolve(dir, item.path);
+
+      const content = fs.readFileSync(path, { encoding: "utf-8" });
+      const html = md.render(content.replace(/^---([\s\S]*)---/, "")).replace(/\<(.*) \/\>/g, "");
+      const dom = parseFromString(html);
+
+      let headingNodes: Node[] = [];
+
+      // trying to find heading 1 to 6
+      for (let i = 1; i <= 6; i++) {
+        if (headingNodes.length === 0) {
+          const headingTags = dom.getElementsByTagName(`h${i}`);
+          if (Array.isArray(headingTags) && headingTags.length !== 0) {
+            headingNodes = headingTags;
+            break;
+          }
+        }
+      }
+
+      title = headingNodes.reduce((acc, _) => acc + _.textContent, "");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  return title ?? "Unknown";
+}
+
 interface TreeNode {
   name: string;
   path: string;
@@ -82,5 +120,6 @@ interface TreeNode {
 interface NodeAttribute {
   title?: string;
   slug?: string;
+  sidebar_label?: string;
   sidebar_position?: string;
 }
