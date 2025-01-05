@@ -43,9 +43,5 @@ jobs:
         if: ${{ steps.status.outputs.status }}
 
       - name: trigger deploy workflow
-        run: curl \
-              -X POST \
-              https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/wiki-deploy.yml/dispatches \
-              -u ${{ secrets.PAT_TOKEN }} \
-              -d '{"ref":"${{github.ref_name}}"}'
+        run: curl -X POST https://api.github.com/repos/8aka-Team/NitWikit-VitePress/actions/workflows/wiki-deploy.yml/dispatches -u ${{ secrets.PAT_TOKEN }} -d '{"ref":"${{github.ref_name}}"}'
         if: ${{ steps.status.outputs.status }}
