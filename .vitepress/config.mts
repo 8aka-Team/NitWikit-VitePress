@@ -7,7 +7,7 @@ import { NitWikitAssertsTransformer, NitWikitBilibiliTransformer, NitWikitConten
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
   title: "NitWikit",
-  description: "一群笨蛋们写的 Minecraft 开服教程",
+  description: "一群笨蛋编写的 Minecraft 开服教程",
   lang: "zh-CN",
   ignoreDeadLinks: true,
   lastUpdated: true,
