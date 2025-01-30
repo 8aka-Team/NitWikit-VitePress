@@ -2,6 +2,7 @@ import { BasePlugin } from "../base";
 
 export class NitWikitContentTransformer extends BasePlugin {
   static #regExp: RegExp = /^(---([\s\S]*)---)?([\r|\n]*)(?<heading>[#]{2,6} )(?<title>[\s\S].*)/;
+  static #imgSrcRegExp: RegExp = /\<img(.*)src="(?<src>_images\/(.*))"/
 
   constructor() {
     super({
@@ -15,7 +16,17 @@ export class NitWikitContentTransformer extends BasePlugin {
       const result = code.match(NitWikitContentTransformer.#regExp);
       let newCode = code;
       if (result !== null) {
-        newCode = code.replace(`${result.groups?.heading}${result.groups?.title}`, `# ${result.groups?.title}`);
+        newCode = code.replace(`${result.groups?.heading}${result.groups?.title}`, `# ${result.groups?.title}`);        
+      }
+
+      const imgResult = code.match(new RegExp(NitWikitContentTransformer.#imgSrcRegExp, "g"));
+      if (imgResult !== null) {
+        imgResult.forEach(img => {
+          const tmp = img.match(NitWikitContentTransformer.#imgSrcRegExp);
+          if(tmp){
+            newCode = newCode.replace(tmp.groups!.src,`./${tmp.groups!.src}`);        
+          }
+        });
       }
 
       return newCode
