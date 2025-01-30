@@ -34,6 +34,9 @@ export default withMermaid({
       include: ["@braintree/sanitize-url", "dayjs", "debug", "cytoscape-cose-bilkent", "cytoscape"],
     },
   },
+  head: [ 
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&family=Noto+Sans+SC:wght@200;400;700;900&family=Material+Symbols+Outlined&display=swap' }]
+  ],
   themeConfig: {
     nav: [
       { text: "通用", link: "/intro.md" },
