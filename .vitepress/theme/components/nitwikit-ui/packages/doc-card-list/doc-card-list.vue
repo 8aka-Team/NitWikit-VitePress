@@ -2,7 +2,7 @@
   <div class="nw-doc-card">
     <div class="doc-card" v-for="(item, index) in cardList" :key="index" @click="onDocCardClickHandler(item)">
       <p class="doc-card__title">{{ item.text }}</p>
-      <p class="doc-card__summary" v-if="item.items.length !== 0">
+      <p class="doc-card__summary" v-if="Array.isArray(item.items) && item.items.length !== 0">
         {{ item.items.length }}个项目
       </p>
     </div>
