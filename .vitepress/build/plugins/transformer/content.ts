@@ -46,9 +46,10 @@ export class NitWikitContentTransformer extends BasePlugin {
       }
 
       return newCode
-        .replace(/import ([\s\S]+) from ['"](@theme\/[\s\S]+)['"];/g, "")
-        .replace(/import ([\s\S]+) from &#39;(@theme\/[\s\S]+)&#39;;/g, "")
-        .replace(/values={\[([\s\S]*)\]}/g, "");
+        .replace(/import ([\s\S]+) from ['"]((@theme|@site)\/[\s\S]+)['"];/g, "")
+        .replace(/import ([\s\S]+) from &#39;((@theme|@site)\/[\s\S]+)&#39;;/g, "")
+        .replace(/values={\[([\s\S]*)\]}/g, "")
+        .replace(/sponsors={(?<Name>\[([\s\S]*)\])}/g, `:sponsors="$1"`);
     }
   }
 }
