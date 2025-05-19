@@ -42,11 +42,13 @@ export default withMermaid({
       { text: "通用", link: "/intro.md" },
       { text: "Java", link: "/Java/intro.md" },
       { text: "Bedrock", link: "/Bedrock/intro.md" },
+      { text: "关于我们", link: "/about/intro.md" },
     ],
     sidebar: {
       "/": await getSidebar(resolve(import.meta.dirname, "../docs/nitwikit/docs"), ""),
       "/Java/": await getSidebar(resolve(import.meta.dirname, "../docs/nitwikit/docs-java"), "/Java"),
       "/Bedrock/": await getSidebar(resolve(import.meta.dirname, "../docs/nitwikit/docs-bedrock"), "/Bedrock"),
+      "/about/": await getSidebar(resolve(import.meta.dirname, "../docs/nitwikit/docs-about"), "/about"),
     },
     ...themeConfig,
   },
